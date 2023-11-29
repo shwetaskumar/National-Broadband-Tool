@@ -45,9 +45,9 @@ def get_df_lat_long(state_code):
     merged_geo_tract = data_geo_tract.merge(filtered_data, right_on='tract_code', left_on='GEOID', how='left')
     merged_geo_county = data_geo_county.merge(county_data, right_on='county_code', left_on='COUNTYFP', how='left')
     
-    income_model = xgb.Booster(model_file='MODELS/income_model.json')
-    education_model = xgb.Booster(model_file='MODELS/education_model.json')
-    employment_model = xgb.Booster(model_file='MODELS/employment_model.json')
+    income_model = xgb.Booster(model_file='MODELS/income_score_model.json')
+    education_model = xgb.Booster(model_file='MODELS/education_score_model.json')
+    employment_model = xgb.Booster(model_file='MODELS/employment_score_model.json')
     
     if state_code == '02':
             minx, miny, maxx, maxy = -179.231086, 51.175092, -140, 71.365162 # Alaska overlaps the international date line

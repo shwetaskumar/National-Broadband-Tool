@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 streamlit-folium
 geopandas
 xgboost
 openai
-=======
-streamlit-folium
-geopandas
-xgboost
-openai
->>>>>>> d1c0ee61b5c2f86ff0a9169997fc2d87d96a6519

@@ -3,3 +3,4 @@ geopandas
 xgboost
 openai
 joblib
+scikit-learn

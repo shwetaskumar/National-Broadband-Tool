@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
@@ -342,5 +341,4 @@ with cols2:
     st_map = folium_static(map,height=600)
 # if 'selected_state' not in st.session_state:
 #     st.session_state['selected_state'] = selected_state
->>>>>>> d1c0ee61b5c2f86ff0a9169997fc2d87d96a6519
 #     st.session_state['selected_state_code'] = STATES[selected_state]

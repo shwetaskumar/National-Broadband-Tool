@@ -58,7 +58,7 @@ def get_df_lat_long(state_code):
 
 def predict_data(df,income_model,education_model,employment_model):
     data_income = df[['Year', 'connections_above25', 'connections_below25', 'male_Population', 'female_Population', 'under25_Population', 'over25_Population', 'seniors_Population', 'veterans_Population', 'non_veterans_Population', 'disability_below65_Population', 'disability_above65_Population', 'total_ea_noSchooling%', 'total_ea_noDiploma%', 'total_ea_highschool%', 'total_ea_GED_alternate%', 'total_ea_associates%', 'total_ea_bachelors%', 'total_ea_masters%', 'total_ea_professional%', 'total_ea_doctorate%', 'belowPoverty%', 'total_employed%', 'total_unemployed%', 'total_value_household_less100k%', 'total_value_household_100k_1000k%', 'total_value_household_1000k+%', 'total_1939_2000%', 'total_2000_2014+%', 'internet_broadband%', 'internet_other%', 'no_Internet%']].rename(columns={'total_value_household_less100k%':'total_value_household_less100k%'})
-    data_income = xgb.DMatrix(data_income)
+    # data_income = xgb.DMatrix(data_income)
     
     data_employment = df[['Year', 'connections_above25', 'connections_below25',
        'male_Population', 'female_Population', 'under25_Population',

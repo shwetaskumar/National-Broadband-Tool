@@ -2,3 +2,4 @@ streamlit-folium
 geopandas
 xgboost
 openai
+joblib

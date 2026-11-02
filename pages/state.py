@@ -23,6 +23,14 @@ def get_bounds(df):
     return [[miny,minx], [maxy,maxx]]
 
 @st.cache_resource
+def get_models():
+    # Loaded once and shared across states
+    income_model = xgb.Booster(model_file='MODELS/income_model_lag2.json')
+    education_model = xgb.Booster(model_file='MODELS/education_model_lag2.json')
+    employment_model = xgb.Booster(model_file='MODELS/employment_model_lag2.json')
+    return income_model,education_model,employment_model
+
+@st.cache_resource
 def get_df_lat_long(state_code):
     merged_data = pd.read_parquet(path="DATA/visual_data.parquet")
     merged_data['Income Score'] = merged_data['income_score']
@@ -45,10 +53,8 @@ def get_df_lat_long(state_code):
     merged_geo_tract = data_geo_tract.merge(filtered_data, right_on='tract_code', left_on='GEOID', how='left')
     merged_geo_county = data_geo_county.merge(county_data, right_on='county_code', left_on='COUNTYFP', how='left')
     
-    income_model = xgb.Booster(model_file='MODELS/income_model_lag2.json')
-    education_model = xgb.Booster(model_file='MODELS/education_model_lag2.json')
-    employment_model = xgb.Booster(model_file='MODELS/employment_model_lag2.json')
-    
+    income_model,education_model,employment_model = get_models()
+
     if state_code == '02':
             minx, miny, maxx, maxy = -179.231086, 51.175092, -140, 71.365162 # Alaska overlaps the international date line
             bounds = [[miny,minx], [maxy,maxx]]
@@ -320,7 +326,7 @@ else:
                 tooltip=tooltip,
             ).add_to(map)
             # Iterate over the GeoDataFrame to place state names
-            for _, row in merged_geo_tract.iterrows():
+            for _, row in merged_geo_tract[merged_geo_tract['county_name'] == county].iterrows():
                 # Extract the centroid of the state's boundary for the marker's location
                 centroid = row['geometry'].centroid
                 folium.Marker(

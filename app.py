@@ -35,7 +35,7 @@ def nav_page(page_name, timeout_secs=3):
 def go_to_page(state,state_code):
     st.session_state['selected_state'] = state
     st.session_state['selected_state_code'] = state_code
-    nav_page('state')
+    st.switch_page('pages/state.py')
 @st.cache_resource
 def get_df():
     states_data = pd.read_parquet("DATA/data_2021_states.parquet")
@@ -117,7 +117,8 @@ with cols1:
     st.markdown(':blue[The Digital Index quantifies broadband access by the share of connections above 25 Mbps on a scale from 0 to 1; areas with values near 0, **shown in darker red, are priority zones** for network enhancements due to their limited high-speed connectivity.]')
     selected_state = st.selectbox("Select a State",list(STATES.keys()))
     selected_state_code = STATES[selected_state]
-    st.button("Go to State", on_click=go_to_page, args=[selected_state,selected_state_code])
+    if st.button("Go to State"):
+        go_to_page(selected_state,selected_state_code)
 with cols2:
     
     colormap = branca.colormap.LinearColormap(
@@ -166,6 +167,6 @@ with cols2:
     map.add_child(colormap)
     # fg = folium.FeatureGroup(name="State bounds")
     # fg.add_child(g)
-    st_map = folium_static(map,height=600)
+    st_map = st_folium(map,height=600,use_container_width=True,returned_objects=[])
 # if 'selected_state' not in st.session_state:
 #     st.session_state['selected_state'] = selected_state

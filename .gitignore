@@ -1,4 +1,5 @@
 test.ipynb
 .vscode/
-.streamlit/.venv/
+.streamlit/
+.venv/
 __pycache__/
